@@ -25,6 +25,7 @@ public class GameController : MonoBehaviour
     [SerializeField] private float roundWaitTime = 1.0f;
     [SerializeField] private float postRoundWaitTime = 1.0f;
     [SerializeField] private RoundTimerUI roundTimerUI;
+    [SerializeField] private ThinkingBubble thinkingBubble;
 
     [Header("Score Calculation")]
     [SerializeField] private float timeModifierMin = 1.0f;
@@ -34,7 +35,7 @@ public class GameController : MonoBehaviour
     [SerializeField] private float pointsPerCorrectAmount = 1.0f;
 
     private PlayerInput input;
-    private int currentRound = -1;
+    private int currentRound = 0;
     private bool roundActive = false;
     private string searchedCombo = string.Empty;
     private string currentResultInput = string.Empty;
@@ -66,6 +67,8 @@ public class GameController : MonoBehaviour
         this.input.General.Right.started += context => this.OnComboInput("R");
         this.input.General.Down.started += context => this.OnComboInput("D");
         this.input.General.Left.started += context => this.OnComboInput("L");
+        
+        this.thinkingBubble.Deactivate();
 
         this.StartCoroutine(this.StartNextRound());
     }
@@ -91,20 +94,22 @@ public class GameController : MonoBehaviour
 
     private IEnumerator StartNextRound()
     {
-        this.onStartNextRoundBeforeDelay.Invoke();
-        
-        this.roundTimerUI.UpdateValue(0.0f);
-        
-        yield return new WaitForSeconds(this.preRoundWaitTime);
-        this.currentRound++;
         if (this.currentRound >= this.searchedComboPools.Count)
         {
             // All rounds played
             this.GameOver();
             yield break;
         }
+        
+        this.onStartNextRoundBeforeDelay.Invoke();
+        
+        this.roundTimerUI.UpdateValue(0.0f);
+        
+        yield return new WaitForSeconds(this.preRoundWaitTime);
 
         this.searchedCombo = this.searchedComboPools[this.currentRound].GetSearchedCombo();
+        this.thinkingBubble.Activate();
+        this.thinkingBubble.UpdateBubble(this.searchedCombo);
         this.CurrentRoundTime = 0.0f;
         this.roundActive = true;
         this.currentResultInput = string.Empty;
@@ -125,6 +130,8 @@ public class GameController : MonoBehaviour
 
         this.roundActive = false;
         this.gameScore += this.CalculateScore();
+        this.thinkingBubble.Deactivate();
+        this.currentRound++;
         Debug.Log($"Score is now {this.gameScore}");
     }
 

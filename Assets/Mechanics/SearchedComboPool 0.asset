@@ -12,8 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a7ef82abd9140fabee8eadc11634852, type: 3}
   m_Name: SearchedComboPool 0
   m_EditorClassIdentifier: 
-  inputs: 3
+  inputs: 5
   pool:
+  - L
+  - L
+  - L
+  - L
+  - L
+  - L
+  - L
+  - L
+  - L
   - L
   - L
   - L
