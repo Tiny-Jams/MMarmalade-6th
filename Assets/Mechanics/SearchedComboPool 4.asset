@@ -14,9 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inputs: 3
   pool:
-  - A
-  - A
-  - A
-  - S
-  - S
-  - S
+  - L
+  - L
+  - L
