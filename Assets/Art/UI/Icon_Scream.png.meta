@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 97323c7834837a348834a799bbcbe266
+guid: d6f973944899e46469ce783adc2e7249
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -42,7 +42,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -114,112 +114,7 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites:
-    - serializedVersion: 2
-      name: Monster_Reach_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 0
-        width: 176
-        height: 176
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 88909f5b4e2dffe42b7494ac0674bb6a
-      internalID: -2144756682
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Monster_Reach_1
-      rect:
-        serializedVersion: 2
-        x: 176
-        y: 0
-        width: 176
-        height: 176
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4b24791b597302549a8c75b62c438d3e
-      internalID: -258300922
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Monster_Reach_2
-      rect:
-        serializedVersion: 2
-        x: 352
-        y: 0
-        width: 176
-        height: 176
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3aa76a0038d936a40afb93aa23b850a4
-      internalID: 609022198
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Monster_Reach_3
-      rect:
-        serializedVersion: 2
-        x: 528
-        y: 0
-        width: 176
-        height: 176
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ca2823db5db396147bce233d6c214734
-      internalID: 1107234364
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Monster_Reach_4
-      rect:
-        serializedVersion: 2
-        x: 704
-        y: 0
-        width: 176
-        height: 176
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 99e64a1acdff6464586c674809658377
-      internalID: -148583856
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
+    sprites: []
     outline: []
     physicsShape: []
     bones: []
@@ -230,12 +125,7 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable:
-      Monster_Reach_0: -2144756682
-      Monster_Reach_3: 1107234364
-      Monster_Reach_2: 609022198
-      Monster_Reach_1: -258300922
-      Monster_Reach_4: -148583856
+    nameFileIdTable: {}
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

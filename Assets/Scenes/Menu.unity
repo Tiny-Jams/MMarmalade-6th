@@ -1101,7 +1101,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Higherst Fear Score:'
+  m_text: 'Highest Fear Score:'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f30c8e1ead1117943b08e95e25f45323, type: 2}
   m_sharedMaterial: {fileID: -414391606811602327, guid: f30c8e1ead1117943b08e95e25f45323, type: 2}

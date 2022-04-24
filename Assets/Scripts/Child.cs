@@ -6,6 +6,7 @@ public class Child : AbstractChild
     [SerializeField] private UnityEvent onNoFearTriggered;
     [SerializeField] private UnityEvent onLittleFearTriggered;
     [SerializeField] private UnityEvent onBigFearTriggered;
+    [SerializeField, Range(0.01f, 1.0f)] private float bigFearMinSlotAmount = 1.0f;
 
     private static readonly int Fear1 = Animator.StringToHash("Fear1");
     private static readonly int Fear2 = Animator.StringToHash("Fear2");
@@ -16,16 +17,16 @@ public class Child : AbstractChild
 
         switch (pAmount)
         {
-            case < 0.2f:
-                this.onNoFearTriggered.Invoke();
+            case > 0.0f when pSlots >= this.bigFearMinSlotAmount:
+                this.onBigFearTriggered.Invoke();
+                this.animator.SetBool(Fear2, true);
                 break;
-            case >= 0.2f when pSlots < 0.9f:
+            case > 0.0f:
                 this.animator.SetBool(Fear1, true);
                 this.onLittleFearTriggered.Invoke();
                 break;
             default:
-                this.onBigFearTriggered.Invoke();
-                this.animator.SetBool(Fear2, true);
+                this.onNoFearTriggered.Invoke();
                 break;
         }
     }

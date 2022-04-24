@@ -16,13 +16,14 @@ public class GameController : MonoBehaviour
     [SerializeField] private UnityEvent onStartNextRound = new();
     [SerializeField] private UnityEvent onRoundEnded = new();
     [SerializeField] private UnityEvent<string> onInputReceived = new();
-    [SerializeField] private UnityEvent onRoundEndedAfterDelay = new();
+    [SerializeField] private UnityEvent onRoundEndedFadeOut = new();
     [SerializeField] private UnityEvent onGameOver = new();
     [SerializeField] private List<SearchedComboPool> searchedComboPools = new();
     [SerializeField] private float maxRoundTime = 5.0f;
     [SerializeField] private float preRoundWaitTime = 1.0f;
-    [SerializeField] private float roundWaitTime = 1.0f;
-    [SerializeField] private float postRoundWaitTime = 1.0f;
+    [SerializeField] private float waitTimeBeforeEndedEvent = 1.0f;
+    [SerializeField] private float waitTimeFadeOut = 1.0f;
+    [SerializeField] private float waitTimeBeforeStartingNext = 1.0f;
     [SerializeField] private RoundTimerUI roundTimerUI;
     [SerializeField] private ThinkingBubble thinkingBubble;
 
@@ -102,7 +103,7 @@ public class GameController : MonoBehaviour
             yield break;
         }
 
-        this.childChooser.StopScream();
+        this.childChooser.SetRandomChild();
 
         this.onStartNextRoundBeforeDelay.Invoke();
 
@@ -149,10 +150,11 @@ public class GameController : MonoBehaviour
         }
 
         this.EndRound(); // End Round if Time is over
+        yield return new WaitForSeconds(this.waitTimeBeforeEndedEvent);
         this.onRoundEnded.Invoke();
-        yield return new WaitForSeconds(this.roundWaitTime);
-        this.onRoundEndedAfterDelay.Invoke(); // Fade out
-        yield return new WaitForSeconds(this.postRoundWaitTime);
+        yield return new WaitForSeconds(this.waitTimeFadeOut);
+        this.onRoundEndedFadeOut.Invoke(); // Fade out
+        yield return new WaitForSeconds(this.waitTimeBeforeStartingNext);
         this.StartCoroutine(this.StartNextRound());
     }
 

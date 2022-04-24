@@ -7,6 +7,7 @@ public class ThinkingBubble : MonoBehaviour
     [SerializeField] private int maxColumns = 4;
     [SerializeField] private Image image;
     [SerializeField] private float unitPerColumn = 64;
+    [SerializeField] private float offset = 32;
 
     [SerializeField] private GameObject prefabUp;
     [SerializeField] private GameObject prefabRight;
@@ -18,8 +19,8 @@ public class ThinkingBubble : MonoBehaviour
         var columns = Mathf.Clamp(s.Length, 1, this.maxColumns);
         var rows = ((s.Length -1) / 4) + 1;
 
-        var width = columns * this.unitPerColumn;
-        var height = rows * this.unitPerColumn;
+        var width = columns * this.unitPerColumn + this.offset;
+        var height = rows * this.unitPerColumn + this.offset;
         this.image.rectTransform.sizeDelta = new Vector2(width, height);
 
         // remove all old ones
