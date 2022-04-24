@@ -35,15 +35,18 @@ public class GameController : MonoBehaviour
     [SerializeField] private float pointsPerCorrectAmount = 1.0f;
 
     private PlayerInput input;
-    private int currentRound = 0;
     private bool roundActive = false;
     private string searchedCombo = string.Empty;
     private string currentResultInput = string.Empty;
     private readonly List<char> inputOptions = new() { 'U', 'R', 'D', 'L' };
     private ChildChooser childChooser;
+    private RoundTextUi roundTextUi;
     private List<Tentacle> tentacles;
 
     public float CurrentRoundTime { get; private set; } = 0.0f;
+
+    public int CurrentRound { get; private set; } = 0;
+    public int MaxRounds => this.searchedComboPools.Count;
 
     private void Awake()
     {
@@ -52,6 +55,7 @@ public class GameController : MonoBehaviour
         ScoreManager.Score = 0.0f;
         this.childChooser = FindObjectOfType<ChildChooser>();
         this.tentacles = FindObjectsOfType<Tentacle>().ToList();
+        this.roundTextUi = FindObjectOfType<RoundTextUi>();
     }
 
     private void OnEnable()
@@ -73,7 +77,7 @@ public class GameController : MonoBehaviour
         this.input.General.Left.started += context => this.OnComboInput("L");
 
         this.thinkingBubble.Deactivate();
-        
+
         foreach (var tentacle in this.tentacles)
         {
             tentacle.Deactivate();
@@ -104,7 +108,7 @@ public class GameController : MonoBehaviour
 
     private IEnumerator StartNextRound()
     {
-        if (this.currentRound >= this.searchedComboPools.Count)
+        if (this.CurrentRound >= this.searchedComboPools.Count)
         {
             // All rounds played
             this.GameOver();
@@ -113,9 +117,10 @@ public class GameController : MonoBehaviour
 
         this.childChooser.SetRandomChild();
         this.thinkingBubble.RemoveOldBubbleImages();
+        this.roundTextUi.UpdateText(this.CurrentRound, this.searchedComboPools.Count);
         foreach (var tentacle in this.tentacles)
         {
-            tentacle.ActivateWithRandomness(this.currentRound);
+            tentacle.ActivateWithRandomness(this.CurrentRound);
         }
 
         this.onStartNextRoundBeforeDelay.Invoke();
@@ -124,7 +129,7 @@ public class GameController : MonoBehaviour
 
         yield return new WaitForSeconds(this.preRoundWaitTime);
 
-        this.searchedCombo = this.searchedComboPools[this.currentRound].GetSearchedCombo();
+        this.searchedCombo = this.searchedComboPools[this.CurrentRound].GetSearchedCombo();
         this.thinkingBubble.Activate();
         this.thinkingBubble.UpdateBubble(this.searchedCombo);
 
@@ -151,8 +156,14 @@ public class GameController : MonoBehaviour
         if (!this.roundActive) return;
 
         this.roundActive = false;
+        this.StartCoroutine(this.CalculateScore());
+        this.CurrentRound++;
+    }
+
+    private IEnumerator CalculateScore()
+    {
+        yield return new WaitForSeconds(0.6f);
         ScoreManager.Score += this.CalculateScoreAndTriggerChild();
-        this.currentRound++;
     }
 
     private IEnumerator RoundRoutine()
@@ -172,7 +183,7 @@ public class GameController : MonoBehaviour
         yield return new WaitForSeconds(this.waitTimeFadeOut);
         this.onRoundEndedFadeOut.Invoke(); // Fade out
         yield return new WaitForSeconds(this.waitTimeBeforeStartingNext);
-        
+
         this.StartCoroutine(this.StartNextRound());
     }
 
