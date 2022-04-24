@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -36,6 +37,12 @@ public class ChildChooser : MonoBehaviour
     public void Scream(float pAmount, float pSlots)
     {
         this.activeObj.Scream(pAmount, pSlots);
+        this.StartCoroutine(this.ScreamAfterDelay());
+    }
+
+    public IEnumerator ScreamAfterDelay()
+    {
+        yield return new WaitForSeconds(0.6f);
     }
 
     public void StopScream()

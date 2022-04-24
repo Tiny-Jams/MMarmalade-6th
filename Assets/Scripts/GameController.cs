@@ -156,14 +156,8 @@ public class GameController : MonoBehaviour
         if (!this.roundActive) return;
 
         this.roundActive = false;
-        this.StartCoroutine(this.CalculateScore());
-        this.CurrentRound++;
-    }
-
-    private IEnumerator CalculateScore()
-    {
-        yield return new WaitForSeconds(0.6f);
         ScoreManager.Score += this.CalculateScoreAndTriggerChild();
+        this.CurrentRound++;
     }
 
     private IEnumerator RoundRoutine()
