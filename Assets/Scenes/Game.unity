@@ -2058,7 +2058,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3103627247473689809, guid: a0ee738184eb73943a47da28d3dbea4f, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 29.99997
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 3103627247473689809, guid: a0ee738184eb73943a47da28d3dbea4f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2129,10 +2129,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2553855063969715655, guid: edc218e85434a884cad8aaa8b09b103d, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.2
-      objectReference: {fileID: 0}
     - target: {fileID: 6057476378085323379, guid: edc218e85434a884cad8aaa8b09b103d, type: 3}
       propertyPath: m_RootOrder
       value: 6
@@ -2180,6 +2176,22 @@ PrefabInstance:
     - target: {fileID: 6057476378085323381, guid: edc218e85434a884cad8aaa8b09b103d, type: 3}
       propertyPath: m_Name
       value: Bed
+      objectReference: {fileID: 0}
+    - target: {fileID: 6754190811349869571, guid: edc218e85434a884cad8aaa8b09b103d, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 286622341, guid: da61818acbc00784d853a7eb3e647742, type: 3}
+    - target: {fileID: 6754190811349869571, guid: edc218e85434a884cad8aaa8b09b103d, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6754190811349869571, guid: edc218e85434a884cad8aaa8b09b103d, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6754190811349869571, guid: edc218e85434a884cad8aaa8b09b103d, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: edc218e85434a884cad8aaa8b09b103d, type: 3}

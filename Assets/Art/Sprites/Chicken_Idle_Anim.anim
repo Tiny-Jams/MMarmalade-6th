@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Child_Idle_Anim
+  m_Name: Chicken_Idle_Anim
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -20,11 +20,11 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: -1149637947, guid: 3c60f09f6082a5d448df6e5af551ff75, type: 3}
+      value: {fileID: 286622341, guid: da61818acbc00784d853a7eb3e647742, type: 3}
     - time: 1.5
-      value: {fileID: 1542680581, guid: 3c60f09f6082a5d448df6e5af551ff75, type: 3}
+      value: {fileID: -2010540970, guid: da61818acbc00784d853a7eb3e647742, type: 3}
     - time: 1.6666666
-      value: {fileID: -1149637947, guid: 3c60f09f6082a5d448df6e5af551ff75, type: 3}
+      value: {fileID: 286622341, guid: da61818acbc00784d853a7eb3e647742, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -44,9 +44,9 @@ AnimationClip:
       customType: 23
       isPPtrCurve: 1
     pptrCurveMapping:
-    - {fileID: -1149637947, guid: 3c60f09f6082a5d448df6e5af551ff75, type: 3}
-    - {fileID: 1542680581, guid: 3c60f09f6082a5d448df6e5af551ff75, type: 3}
-    - {fileID: -1149637947, guid: 3c60f09f6082a5d448df6e5af551ff75, type: 3}
+    - {fileID: 286622341, guid: da61818acbc00784d853a7eb3e647742, type: 3}
+    - {fileID: -2010540970, guid: da61818acbc00784d853a7eb3e647742, type: 3}
+    - {fileID: 286622341, guid: da61818acbc00784d853a7eb3e647742, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
