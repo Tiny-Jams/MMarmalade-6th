@@ -1,7 +1,5 @@
 ﻿using UnityEngine;
 
-namespace DefaultNamespace
-{
     public class ScoreManager : MonoBehaviour
     {
         private static float HIGHSCORE = 0.0f;
@@ -27,4 +25,3 @@ namespace DefaultNamespace
             private set => HIGHSCORE = value;
         }
     }
-}

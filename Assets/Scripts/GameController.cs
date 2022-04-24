@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using com.tinyjams.tjlib.Runtime.Utility.ComboSystem;
 using com.tinyjams.tjlib.Runtime.Utility.Extensions;
-using DefaultNamespace;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -39,7 +38,6 @@ public class GameController : MonoBehaviour
     private bool roundActive = false;
     private string searchedCombo = string.Empty;
     private string currentResultInput = string.Empty;
-    private float gameScore;
     private readonly List<char> inputOptions = new() { 'U', 'R', 'D', 'L' };
     private ChildChooser childChooser;
 
@@ -48,7 +46,8 @@ public class GameController : MonoBehaviour
     private void Awake()
     {
         this.input = new PlayerInput();
-        this.gameScore = 0.0f;
+        
+        ScoreManager.Score = 0.0f;
         this.childChooser = FindObjectOfType<ChildChooser>();
     }
 
@@ -124,8 +123,9 @@ public class GameController : MonoBehaviour
 
     private void GameOver()
     {
-        ScoreManager.Score = this.gameScore;
         this.onGameOver.Invoke();
+        
+        SceneManager.LoadScene(this.menuSceneName);
     }
 
     private void EndRound()
@@ -133,10 +133,10 @@ public class GameController : MonoBehaviour
         if (!this.roundActive) return;
 
         this.roundActive = false;
-        this.gameScore += this.CalculateScoreAndTriggerChild();
+        ScoreManager.Score += this.CalculateScoreAndTriggerChild();
         this.thinkingBubble.Deactivate();
         this.currentRound++;
-        Debug.Log($"Score is now {this.gameScore}");
+        Debug.Log($"Score is now {ScoreManager.Score}");
     }
 
     private IEnumerator RoundRoutine()
