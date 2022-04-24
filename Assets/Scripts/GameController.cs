@@ -41,15 +41,17 @@ public class GameController : MonoBehaviour
     private string currentResultInput = string.Empty;
     private readonly List<char> inputOptions = new() { 'U', 'R', 'D', 'L' };
     private ChildChooser childChooser;
+    private List<Tentacle> tentacles;
 
     public float CurrentRoundTime { get; private set; } = 0.0f;
 
     private void Awake()
     {
         this.input = new PlayerInput();
-        
+
         ScoreManager.Score = 0.0f;
         this.childChooser = FindObjectOfType<ChildChooser>();
+        this.tentacles = FindObjectsOfType<Tentacle>().ToList();
     }
 
     private void OnEnable()
@@ -71,6 +73,11 @@ public class GameController : MonoBehaviour
         this.input.General.Left.started += context => this.OnComboInput("L");
 
         this.thinkingBubble.Deactivate();
+        
+        foreach (var tentacle in this.tentacles)
+        {
+            tentacle.Deactivate();
+        }
 
         this.StartCoroutine(this.StartNextRound());
     }
@@ -81,6 +88,7 @@ public class GameController : MonoBehaviour
 
         this.currentResultInput += s;
         this.onInputReceived.Invoke(s);
+        this.thinkingBubble.UpdateInput(this.currentResultInput);
 
         if (this.currentResultInput.Length >= this.searchedCombo.Length)
         {
@@ -104,6 +112,11 @@ public class GameController : MonoBehaviour
         }
 
         this.childChooser.SetRandomChild();
+        this.thinkingBubble.RemoveOldBubbleImages();
+        foreach (var tentacle in this.tentacles)
+        {
+            tentacle.ActivateWithRandomness(this.currentRound);
+        }
 
         this.onStartNextRoundBeforeDelay.Invoke();
 
@@ -114,9 +127,13 @@ public class GameController : MonoBehaviour
         this.searchedCombo = this.searchedComboPools[this.currentRound].GetSearchedCombo();
         this.thinkingBubble.Activate();
         this.thinkingBubble.UpdateBubble(this.searchedCombo);
+
         this.CurrentRoundTime = 0.0f;
         this.roundActive = true;
         this.currentResultInput = string.Empty;
+
+        yield return null;
+        this.thinkingBubble.UpdateInput(string.Empty);
         this.onStartNextRound.Invoke();
 
         this.StartCoroutine(this.RoundRoutine());
@@ -125,7 +142,7 @@ public class GameController : MonoBehaviour
     private void GameOver()
     {
         this.onGameOver.Invoke();
-        
+
         SceneManager.LoadScene(this.menuSceneName);
     }
 
@@ -135,9 +152,7 @@ public class GameController : MonoBehaviour
 
         this.roundActive = false;
         ScoreManager.Score += this.CalculateScoreAndTriggerChild();
-        this.thinkingBubble.Deactivate();
         this.currentRound++;
-        Debug.Log($"Score is now {ScoreManager.Score}");
     }
 
     private IEnumerator RoundRoutine()
@@ -151,10 +166,13 @@ public class GameController : MonoBehaviour
 
         this.EndRound(); // End Round if Time is over
         yield return new WaitForSeconds(this.waitTimeBeforeEndedEvent);
+
+        this.thinkingBubble.Deactivate();
         this.onRoundEnded.Invoke();
         yield return new WaitForSeconds(this.waitTimeFadeOut);
         this.onRoundEndedFadeOut.Invoke(); // Fade out
         yield return new WaitForSeconds(this.waitTimeBeforeStartingNext);
+        
         this.StartCoroutine(this.StartNextRound());
     }
 

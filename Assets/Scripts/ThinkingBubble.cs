@@ -14,22 +14,27 @@ public class ThinkingBubble : MonoBehaviour
     [SerializeField] private GameObject prefabDown;
     [SerializeField] private GameObject prefabLeft;
 
-    public void UpdateBubble(string s)
+    private string searchedCombo = "";
+
+    public void RemoveOldBubbleImages()
     {
-        var columns = Mathf.Clamp(s.Length, 1, this.maxColumns);
-        var rows = ((s.Length -1) / 4) + 1;
+        foreach (Transform child in this.image.transform)
+        {
+            GameObject.Destroy(child.gameObject);
+        }
+    }
+
+    public void UpdateBubble(string combo)
+    {
+        this.searchedCombo = combo;
+        var columns = Mathf.Clamp(combo.Length, 1, this.maxColumns);
+        var rows = ((combo.Length - 1) / 4) + 1;
 
         var width = columns * this.unitPerColumn + this.offset;
         var height = rows * this.unitPerColumn + this.offset;
         this.image.rectTransform.sizeDelta = new Vector2(width, height);
 
-        // remove all old ones
-        foreach (Transform child in this.image.transform)
-        {
-            GameObject.Destroy(child.gameObject);
-        }
-
-        foreach (var prefab in s.Select(c => c switch
+        foreach (var prefab in combo.Select(c => c switch
                  {
                      'U' => this.prefabUp,
                      'R' => this.prefabRight,
@@ -50,5 +55,35 @@ public class ThinkingBubble : MonoBehaviour
     public void Deactivate()
     {
         this.gameObject.SetActive(false);
+    }
+
+    public void UpdateInput(string currentResultInput)
+    {
+        var selectionIdx = currentResultInput.Length;
+        for (var childIdx = 0; childIdx < this.image.transform.childCount; childIdx++)
+        {
+            var child = this.image.transform.GetChild(childIdx);
+            string searchedChar = this.searchedCombo[childIdx].ToString();
+            string inputChar = currentResultInput.Length <= childIdx
+                ? ""
+                : currentResultInput[childIdx].ToString();
+
+            if (child.TryGetComponent<BubbleImage>(out var bubbleImage))
+            {
+                if (childIdx.Equals(selectionIdx))
+                {
+                    bubbleImage.Select();
+                }
+                else if (searchedChar.Equals(inputChar))
+                {
+                    bubbleImage.Select();
+                    bubbleImage.SetCorrect();
+                }
+                else
+                {
+                    bubbleImage.Deselect();
+                }
+            }
+        }
     }
 }
