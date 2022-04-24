@@ -15,3 +15,4 @@ public class HighScoreToUI : MonoBehaviour
     {
         this.tmpText.text = Mathf.RoundToInt(Mathf.Ceil(ScoreManager.HighScore)).ToString();
     }
+}
