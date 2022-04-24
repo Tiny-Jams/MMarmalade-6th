@@ -41,6 +41,7 @@ public class GameController : MonoBehaviour
     private string currentResultInput = string.Empty;
     private float gameScore;
     private readonly List<char> inputOptions = new() { 'U', 'R', 'D', 'L' };
+    private ChildChooser childChooser;
 
     public float CurrentRoundTime { get; private set; } = 0.0f;
 
@@ -48,6 +49,7 @@ public class GameController : MonoBehaviour
     {
         this.input = new PlayerInput();
         this.gameScore = 0.0f;
+        this.childChooser = FindObjectOfType<ChildChooser>();
     }
 
     private void OnEnable()
@@ -67,7 +69,7 @@ public class GameController : MonoBehaviour
         this.input.General.Right.started += context => this.OnComboInput("R");
         this.input.General.Down.started += context => this.OnComboInput("D");
         this.input.General.Left.started += context => this.OnComboInput("L");
-        
+
         this.thinkingBubble.Deactivate();
 
         this.StartCoroutine(this.StartNextRound());
@@ -100,11 +102,13 @@ public class GameController : MonoBehaviour
             this.GameOver();
             yield break;
         }
-        
+
+        this.childChooser.StopScream();
+
         this.onStartNextRoundBeforeDelay.Invoke();
-        
+
         this.roundTimerUI.UpdateValue(0.0f);
-        
+
         yield return new WaitForSeconds(this.preRoundWaitTime);
 
         this.searchedCombo = this.searchedComboPools[this.currentRound].GetSearchedCombo();
@@ -129,7 +133,7 @@ public class GameController : MonoBehaviour
         if (!this.roundActive) return;
 
         this.roundActive = false;
-        this.gameScore += this.CalculateScore();
+        this.gameScore += this.CalculateScoreAndTriggerChild();
         this.thinkingBubble.Deactivate();
         this.currentRound++;
         Debug.Log($"Score is now {this.gameScore}");
@@ -152,7 +156,7 @@ public class GameController : MonoBehaviour
         this.StartCoroutine(this.StartNextRound());
     }
 
-    private float CalculateScore()
+    private float CalculateScoreAndTriggerChild()
     {
         var correctSlotAmount = 0;
         var idx = 0;
@@ -168,6 +172,9 @@ public class GameController : MonoBehaviour
             let inputAmount = this.currentResultInput.Count(s => s.Equals(c))
             let searchedAmount = this.searchedCombo.Count(s => s.Equals(c))
             select Mathf.Min(inputAmount, searchedAmount)).Sum();
+
+        this.childChooser.Scream((float)correctAmount / (float)this.searchedCombo.Length,
+            (float)correctSlotAmount / (float)this.searchedCombo.Length);
 
         return (correctSlotAmount * this.pointsPerCorrectSlot + correctAmount * this.pointsPerCorrectAmount) * timeMod;
     }

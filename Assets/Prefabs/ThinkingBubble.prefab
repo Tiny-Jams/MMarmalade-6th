@@ -50,7 +50,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 512, y: 384}
+  m_SizeDelta: {x: 256, y: 192}
   m_Pivot: {x: 1, y: 0}
 --- !u!222 &5660269317903157018
 CanvasRenderer:
@@ -110,8 +110,8 @@ MonoBehaviour:
   m_ChildAlignment: 0
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 112, y: 112}
-  m_Spacing: {x: 16, y: 16}
+  m_CellSize: {x: 54, y: 54}
+  m_Spacing: {x: 8, y: 8}
   m_Constraint: 1
   m_ConstraintCount: 4
 --- !u!95 &1207012128078731877
@@ -189,7 +189,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxColumns: 4
   image: {fileID: 5660269317903157019}
-  unitPerColumn: 128
+  unitPerColumn: 64
   prefabUp: {fileID: 7057079106541438050, guid: 6dfe5b1fc5f1ebc469c8f0976e1e64e5, type: 3}
   prefabRight: {fileID: 5092865527739275071, guid: 594cdcc0aa1eeba4cb534153c1a8f811, type: 3}
   prefabDown: {fileID: 5454371466510568421, guid: 5e547547e2d2cdd47a40ecc622d7e237, type: 3}
